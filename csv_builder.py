@@ -73,4 +73,10 @@ for filename in get_file_list():
     
     df = df.append(ratings_dic, ignore_index=True)
     
-df.to_csv(csv_path, sep=',', encoding='utf-8')
+for column in list(df):
+    if column not in categories:
+        df[column] = df[column].fillna(0)
+    else:
+        df[column] = df[column].fillna('None')
+
+df.to_csv(csv_path, sep=',', encoding='utf-8', index = False)
